@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f2f1ed">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>404 — Митта</title>
+  <style>
+    :root{--paper:#f2f1ed;--ink:#151515;--muted:#6f716e;--line:#c7c7c1;--blue:#2854ff}
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink);font-family:Inter,"Noto Sans",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+    body{min-height:100svh;display:grid;grid-template-rows:auto 1fr auto;padding:0 clamp(18px,3.2vw,52px)}
+    a{color:inherit;text-decoration:none}
+    a:focus-visible{outline:3px solid var(--blue);outline-offset:4px}
+    header{height:76px;display:flex;align-items:center;border-bottom:1px solid rgba(21,21,21,.17)}
+    .brand{font-size:24px;font-weight:900;letter-spacing:-.06em}.brand i{font-style:normal;color:var(--blue)}
+    main{display:grid;align-content:center;justify-items:start;padding:8vh 0 12vh}
+    .code{font-size:clamp(104px,21vw,320px);line-height:.72;font-weight:850;letter-spacing:-.085em;margin:0 0 clamp(30px,4vw,56px)}
+    h1{font-size:clamp(28px,3.2vw,52px);line-height:1;letter-spacing:-.045em;margin:0 0 14px;font-weight:760}
+    p{font-size:14px;color:var(--muted);margin:0 0 30px;max-width:36ch}
+    nav{display:flex;gap:24px;flex-wrap:wrap}
+    nav a{font-size:12px;font-weight:750;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--ink);padding-bottom:4px}
+    footer{min-height:68px;border-top:1px solid rgba(21,21,21,.17);display:flex;align-items:center;justify-content:space-between;gap:18px;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+    @media(max-width:600px){header{height:66px}.code{font-size:clamp(112px,40vw,180px);margin-bottom:38px}main{padding:7vh 0 10vh}footer{align-items:flex-start;justify-content:center;flex-direction:column;padding:18px 0;gap:5px}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+  <header><a class="brand" data-home href="/mitta-test/" aria-label="Митта — на главную">МИТТА<i>.</i></a></header>
+  <main>
+    <div class="code" aria-hidden="true">404</div>
+    <h1>Такой страницы нет.</h1>
+    <p>Вернитесь в каталог или начните с главной.</p>
+    <nav aria-label="Навигация со страницы 404">
+      <a data-home href="/mitta-test/">На главную →</a>
+      <a data-catalog href="/mitta-test/catalog/">Каталог →</a>
+    </nav>
+  </main>
+  <footer><span>Митта · Бологое</span><span>ул. Ветка Холодильника, 9</span></footer>
+  <script>
+    (() => {
+      const base = location.pathname.startsWith('/mitta-test/') ? '/mitta-test/' : '/';
+      document.querySelectorAll('[data-home]').forEach(a => a.href = base);
+      document.querySelectorAll('[data-catalog]').forEach(a => a.href = base + 'catalog/');
+    })();
+  </script>
+</body>
+</html>
