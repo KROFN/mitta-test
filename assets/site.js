@@ -198,7 +198,7 @@ function catalogVisual(p){
  return src?img(src,p.name):'';
 }
 function catalogCard(p){
- return `<a class="catalog-product-card" data-catalog-item data-category="${p.category}" href="/product/${p.slug}/"><div class="catalog-product-media">${catalogVisual(p)}</div><div class="catalog-product-body"><h3>${p.name}</h3><div class="catalog-product-meta"><strong>Цена по запросу</strong></div></div></a>`;
+ return `<a class="catalog-product-card" data-catalog-item data-category="${p.category}" href="/product/${p.slug}/"><div class="catalog-product-media">${catalogVisual(p)}</div><div class="catalog-product-body"><h3>${p.name}</h3><p class="catalog-product-detail">${p.tagline}</p><div class="catalog-product-meta"><strong>Цена по запросу <span aria-hidden="true">→</span></strong></div></div></a>`;
 }
 function catalogCategoryCard(category,title,text,image){
  const message=`Здравствуйте! Интересует раздел «${title}». Подскажите, пожалуйста, какие варианты сейчас можно посмотреть и какая актуальная цена.`;
