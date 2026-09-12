@@ -50,14 +50,14 @@ Product data хранится в `assets/site.js` и включает:
 
 ## Release QA changes
 
-- WhatsApp исправлен с неподтверждённого mobile target на **+7 (48238) 3-35-64**, который прямо указан в сохранённой публичной WhatsApp-кнопке организации.
+- Lead-facing версия направляет WhatsApp на основной мобильный **+7 (919) 065-85-85** по решению заказчика. Перед production это требуется подтвердить у магазина; исходное исследование также фиксирует публичную WhatsApp-кнопку на стационарный номер.
 - Телефонный CTA оставлен на **+7 (919) 065-85-85**, показанный Яндекс Картами как основной.
-- Historical price state усилен: статус «Историческая цена · не подтверждена как текущая» расположен перед суммой в Catalog/PDP.
+- Исторические суммы сохранены только во внутреннем dataset/provenance. В публичной витрине они не показываются: используется формула «Уточнить цену» / «Цену и наличие подтвердим в сообщении».
 - Compact no-photo cards/PDP сохранены; giant placeholder не возвращался.
 - Mobile menu получил `aria-controls`, синхронные `aria-expanded`/`aria-hidden`, body scroll lock и закрытие по Escape с возвратом focus.
 - Catalog filters и PDP thumbnails синхронизируют `aria-pressed`.
 - Во все HTML shells добавлен `noindex,nofollow,noarchive` и безопасная demo metadata.
-- Footer явно, но неброско маркирует сайт как неофициальный концепт.
+- Публичный footer содержит только магазин, адрес, навигацию и контакты; служебная маркировка из lead-facing интерфейса удалена. `noindex` сохранён.
 - Удалены старый `test.html`, устаревшие QA screenshots и 19 legacy image-дубликатов из корня `assets/images/`.
 
 ## Responsive / accessibility
@@ -90,7 +90,7 @@ Product data хранится в `assets/site.js` и включает:
 1. публиковать **содержимое `MITTA_DEMO` в корне домена**;
 2. раздавать `index.html` внутри каждой route-папки обычным static-server поведением.
 
-SPA rewrite не требуется. Если демо размещается в подпапке домена, absolute asset/navigation paths нужно адаптировать к base path.
+SPA rewrite не требуется. Base path определяется автоматически по URL `assets/site.js`, поэтому GitHub Pages project-site в подпапке (например `/mitta-test/`) поддерживается без ручного переписывания путей.
 
 ## Final screenshots
 
