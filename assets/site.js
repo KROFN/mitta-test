@@ -1,4 +1,11 @@
-const A=(window.__MITTA_ASSET_BASE||'/assets/images/');
+// GitHub Pages / subpath-safe base detection.
+// Example: /mitta-test/assets/site.js -> BASE = /mitta-test
+const SCRIPT_URL=document.currentScript?.src||'';
+const SCRIPT_PATH=SCRIPT_URL?new URL(SCRIPT_URL,location.href).pathname:'';
+const AUTO_BASE=SCRIPT_PATH.replace(/\/assets\/site\.js$/,'');
+const BASE=(window.__MITTA_BASE!==undefined?window.__MITTA_BASE:AUTO_BASE).replace(/\/+$/,'');
+const route=(p='/')=>`${BASE}${p.startsWith('/')?p:`/${p}`}`;
+const A=(window.__MITTA_ASSET_BASE||route('/assets/images/'));
 const M=(name)=>A+'media/'+name+'.jpg';
 const media={
   hero:M('hall-sofas-main'),
@@ -129,7 +136,9 @@ const catalogDirections=[
 ];
 
 const categoryByKey=Object.fromEntries(cats.map(c=>[c.key,c.name]));
-const path=(window.__MITTA_ROUTE||location.pathname).replace(/\/+$/,'')||'/';
+const RAW_PATH=window.__MITTA_ROUTE||location.pathname;
+const LOCAL_PATH=(BASE&&RAW_PATH.startsWith(BASE))?(RAW_PATH.slice(BASE.length)||'/'):RAW_PATH;
+const path=LOCAL_PATH.replace(/\/+$/,'')||'/';
 const img=(src,alt,cls='',eager=false)=>`<img class="${cls}" src="${src}" alt="${alt}" loading="${eager?'eager':'lazy'}" decoding="async">`;
 const rub=(v)=>new Intl.NumberFormat('ru-RU').format(v)+' ₽';
 const priceMain=(p)=>p.price.kind==='ask'?'Уточнить цену':`${p.price.kind==='from'?'от ':''}${rub(p.price.value)}`;
@@ -205,13 +214,20 @@ function render(){
  if(meta)meta.setAttribute('content',product?`Неофициальная демонстрационная карточка: ${product.name}. Реальные материалы и данные из открытых источников «Митты».`:'Неофициальная демонстрационная концепция сайта мебельного магазина «Митта» в Бологом.');
  let html;
  if(path==='/')html=home();else if(path==='/catalog')html=catalog();else if(path==='/store')html=store();else if(path==='/delivery-payment')html=delivery();else if(path==='/contacts')html=contacts();else if(path.startsWith('/product/'))html=product?productPage(product):catalog();else html=home();
- document.getElementById('app').innerHTML=html;bind();
+ document.getElementById('app').innerHTML=html;
+ if(BASE){
+   document.querySelectorAll('#app a[href^="/"]').forEach(a=>{
+     const href=a.getAttribute('href');
+     if(href!==BASE&&!href.startsWith(BASE+'/'))a.setAttribute('href',route(href));
+   });
+ }
+ bind();
 }
 function bind(){
  const mb=document.querySelector('.menu-btn'),mp=document.querySelector('.menu-panel');
  const setMenu=(open)=>{if(!mb||!mp)return;mp.classList.toggle('open',open);mb.setAttribute('aria-expanded',String(open));mb.setAttribute('aria-label',open?'Закрыть меню':'Открыть меню');mp.setAttribute('aria-hidden',String(!open));document.body.classList.toggle('lock',open)};
  if(mb&&mp){mb.onclick=()=>setMenu(!mp.classList.contains('open'));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&mp.classList.contains('open')){setMenu(false);mb.focus()}})}
  document.querySelectorAll('.pdp-thumb').forEach(b=>b.onclick=()=>{const main=document.querySelector('.pdp-main-img');if(!main)return;main.src=b.dataset.src;main.alt=b.dataset.alt;document.querySelectorAll('.pdp-thumb').forEach(x=>{x.classList.remove('active');x.setAttribute('aria-pressed','false')});b.classList.add('active');b.setAttribute('aria-pressed','true')});
- const params=new URLSearchParams(location.search),initial=params.get('category');const buttons=[...document.querySelectorAll('.filter-btn')];if(buttons.length){const apply=cat=>{buttons.forEach(b=>{const active=b.dataset.cat===cat;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});document.querySelectorAll('[data-category]').forEach(el=>{el.hidden=!(cat==='all'||el.dataset.category===cat||el.dataset.category==='all')})};buttons.forEach(b=>b.onclick=()=>{apply(b.dataset.cat);history.replaceState(null,'',b.dataset.cat==='all'?'/catalog/':`/catalog/?category=${b.dataset.cat}`)});if(initial&&categoryByKey[initial])apply(initial)}
+ const params=new URLSearchParams(location.search),initial=params.get('category');const buttons=[...document.querySelectorAll('.filter-btn')];if(buttons.length){const apply=cat=>{buttons.forEach(b=>{const active=b.dataset.cat===cat;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});document.querySelectorAll('[data-category]').forEach(el=>{el.hidden=!(cat==='all'||el.dataset.category===cat||el.dataset.category==='all')})};buttons.forEach(b=>b.onclick=()=>{apply(b.dataset.cat);history.replaceState(null,'',route(b.dataset.cat==='all'?'/catalog/':`/catalog/?category=${b.dataset.cat}`))});if(initial&&categoryByKey[initial])apply(initial)}
 }
 render();

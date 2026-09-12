@@ -32,3 +32,9 @@ Nested routes используют каталоги с собственным `i
 ## Demo safety
 
 Страницы содержат `noindex,nofollow,noarchive`. Это концепт, а не официальный production-сайт. Перед production-публикацией необходимо перепроверить сведения из `/docs/UNRESOLVED_FACTS.md` и права на использование фотографий.
+## GitHub Pages
+
+Сборка поддерживает публикацию как GitHub Pages project-site в подпапке репозитория. CSS/JS подключаются относительными путями, а `site.js` автоматически определяет base path (например, `/mitta-test`) и добавляет его к внутренним маршрутам и изображениям.
+
+Для `KROFN/mitta-test`: Settings → Pages → Deploy from a branch → `main` / `(root)`. Файл `.nojekyll` уже находится в корне. На custom domain пользовательского Pages-сайта проект открывается по `https://krofn.ru/mitta-test/`.
+
