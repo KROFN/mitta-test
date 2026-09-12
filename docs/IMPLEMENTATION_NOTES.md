@@ -56,8 +56,8 @@ Product data хранится в `assets/site.js` и включает:
 - Compact no-photo cards/PDP сохранены; giant placeholder не возвращался.
 - Mobile menu получил `aria-controls`, синхронные `aria-expanded`/`aria-hidden`, body scroll lock и закрытие по Escape с возвратом focus.
 - Catalog filters и PDP thumbnails синхронизируют `aria-pressed`.
-- Во все HTML shells добавлен `noindex,nofollow,noarchive` и безопасная demo metadata.
-- Footer явно, но неброско маркирует сайт как неофициальный концепт.
+- Во всех HTML shells сохранён `noindex,nofollow,noarchive`; публичные title/description не используют служебные `demo / concept` формулировки.
+- Footer содержит только магазин, навигацию и контакты; служебная маркировка концепта убрана из публичного интерфейса.
 - Удалены старый `test.html`, устаревшие QA screenshots и 19 legacy image-дубликатов из корня `assets/images/`.
 
 ## Responsive / accessibility
@@ -115,3 +115,14 @@ SPA rewrite не требуется. Если демо размещается в
 - Delivery/payment rebuilt as a three-card utility grid with a separate checklist of variables to confirm.
 - Contacts rebuilt around two primary actions (WhatsApp / main phone), three secondary channels, and a separate hours table.
 - Home reputation block now uses 6 named Yandex reviews in a horizontal scroll-snap carousel with controls; rating is integrated into the heading rather than used as a standalone poster.
+
+
+## Detail polish 2026-09-13
+
+- Home section intros привязаны к левой reading-column и продолжаются тонкой линией.
+- Home catalog slice: 4 равные карточки вместо oversized editorial tiles.
+- Showroom: одно фото + `Выставочный зал`, без второго декоративного кадра.
+- Reviews: циклическая навигация, counter и dots.
+- Catalog: 4-column default, 3-column optional large view; карточка = фото + название + одна характеристика + `Цена по запросу`.
+- Kitchens/Garden вынесены из товарной сетки в отдельный блок inquiry-направлений.
+- Contacts: рабочее время находится в первом экране рядом с адресом.
