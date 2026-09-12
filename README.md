@@ -23,11 +23,11 @@ python -m http.server 8080
 
 После этого откройте `http://localhost:8080/`.
 
-Не открывайте HTML через `file://`: проект использует root-relative URL и рассчитан на HTTP hosting с корнем сайта в корне репозитория.
+Не открывайте HTML через `file://`: для корректной проверки маршрутов используйте HTTP-сервер.
 
 ## Deployment note
 
-Nested routes используют каталоги с собственным `index.html`, поэтому hosting должен сохранять обычное directory-index поведение. Для GitHub Pages в project-subpath (`username.github.io/repo/`) root-relative URL потребуют отдельной адаптации base path; для custom domain / root hosting текущая структура подходит без изменений.
+Nested routes используют каталоги с собственным `index.html`. CSS/JS подключаются относительными путями, а `site.js` автоматически определяет base path, поэтому одна и та же сборка работает как в корне домена, так и в GitHub Pages project-subpath вроде `/mitta-test/`.
 
 ## Demo safety
 

@@ -104,3 +104,14 @@ SPA rewrite не требуется. Если демо размещается в
 - `product-laguna-mobile.jpg`
 - `store-desktop.jpg`
 - `store-mobile.jpg`
+
+
+## Structure polish after live review
+
+- Catalog rebuilt from one mixed editorial grid into 8 explicit category sections.
+- Product cards now use a consistent comparison rhythm; no-photo products are compact rows inside their category rather than oversized placeholders.
+- Category-only assortment is shown as a subordinate “Ещё в ассортименте” card, never as a giant editorial insert.
+- Removed public-facing implementation commentary such as “направления без выдуманных карточек” and “никакой фальшивой корзины”.
+- Delivery/payment rebuilt as a three-card utility grid with a separate checklist of variables to confirm.
+- Contacts rebuilt around two primary actions (WhatsApp / main phone), three secondary channels, and a separate hours table.
+- Home reputation block now uses 6 named Yandex reviews in a horizontal scroll-snap carousel with controls; rating is integrated into the heading rather than used as a standalone poster.
