@@ -251,6 +251,11 @@ function contacts(){return `${header()}<main class="utility-page contacts-page">
 
 
 function render(){
+ const app=document.getElementById('app');
+ // Build-time HTML is already in the DOM; only attach interactive handlers.
+ // Do not replace the tree (which would reload images and lose UI state).
+ const alreadyRendered=app?.dataset?.mittaSsg===path&&!window.__MITTA_BUILD__;
+ if(!alreadyRendered){
  const titles={'/':'Митта — мебель в Бологом','/catalog':'Каталог мебели — Митта','/store':'Магазин — Митта · Бологое','/delivery-payment':'Доставка и оплата — Митта','/contacts':'Контакты — Митта'};
  const productSlugRaw=path.startsWith('/product/')?path.split('/').filter(Boolean)[1]:null;
  const productSlug=productSlugRaw==='vendetta'?'vendetta-1600':productSlugRaw;
@@ -261,14 +266,15 @@ function render(){
  if(meta)meta.setAttribute('content',product?`${product.name}: фотографии, характеристики и связь с магазином «Митта».`:(descriptions[path]||descriptions['/']));
  let html;
  if(path==='/')html=home();else if(path==='/catalog')html=catalog();else if(path==='/store')html=store();else if(path==='/delivery-payment')html=delivery();else if(path==='/contacts')html=contacts();else if(path.startsWith('/product/'))html=product?productPage(product):catalog();else html=home();
- document.getElementById('app').innerHTML=html;
+ app.innerHTML=html;
+ }
  if(BASE){
    document.querySelectorAll('#app a[href^="/"]').forEach(a=>{
      const href=a.getAttribute('href');
      if(href!==BASE&&!href.startsWith(BASE+'/'))a.setAttribute('href',route(href));
    });
  }
- bind();
+ if(!window.__MITTA_BUILD__)bind();
 }
 function bind(){
  const mb=document.querySelector('.menu-btn'),mp=document.querySelector('.menu-panel');
