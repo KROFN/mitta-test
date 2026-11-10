@@ -5,6 +5,10 @@ const SCRIPT_PATH=SCRIPT_URL?new URL(SCRIPT_URL,location.href).pathname:'';
 const AUTO_BASE=SCRIPT_PATH.replace(/\/assets\/site\.js$/,'');
 const BASE=(window.__MITTA_BASE!==undefined?window.__MITTA_BASE:AUTO_BASE).replace(/\/+$/,'');
 const route=(p='/')=>`${BASE}${p.startsWith('/')?p:`/${p}`}`;
+const ensureConceptStrip=()=>{
+  if(document.querySelector('[data-krofn-concept-strip]'))return;
+  document.body.insertAdjacentHTML('afterbegin','<div class="concept-strip" data-krofn-concept-strip role="note">ИНИЦИАТИВНЫЙ ДЕМОНСТРАЦИОННЫЙ КОНЦЕПТ KROFN · НЕОФИЦИАЛЬНЫЙ САЙТ</div>');
+};
 const A=(window.__MITTA_ASSET_BASE||route('/assets/images/'));
 const M=(name)=>A+'media/'+name+'.jpg';
 const catalogImageMap={kotenok:M('kotenok-catalog'),'adam-1':M('adam-catalog')};
@@ -286,4 +290,5 @@ function bind(){
  if(location.hash)requestAnimationFrame(()=>document.querySelector(location.hash)?.scrollIntoView({block:'start'}));
  const grid=document.getElementById('catalogGrid'),viewButtons=[...document.querySelectorAll('.view-btn')];if(grid&&viewButtons.length){const setView=view=>{grid.classList.toggle('view-compact',view==='compact');grid.classList.toggle('view-large',view==='large');viewButtons.forEach(b=>{const active=b.dataset.view===view;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))})};viewButtons.forEach(b=>b.addEventListener('click',()=>setView(b.dataset.view)));setView('compact');}
 }
+ensureConceptStrip();
 render();
