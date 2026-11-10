@@ -1,3 +1,5 @@
+.concept-strip{min-height:30px;display:flex;align-items:center;justify-content:center;padding:5px var(--pad);border-bottom:1px solid rgba(21,21,21,.17);background:#f2f1ed;color:#151515;font-size:10px;line-height:1.2;font-weight:750;letter-spacing:.055em;text-align:center;text-transform:uppercase;position:relative;z-index:70}
+@media(max-width:560px){.concept-strip{font-size:9px;letter-spacing:.04em;padding-left:14px;padding-right:14px}}
 :root{
   --paper:#f2f1ed;--ink:#151515;--muted:#6f716e;--line:#c7c7c1;--blue:#2854ff;--blue-deep:#1739c7;--white:#fff;--black:#0d0e10;
   --pad:clamp(18px,3.2vw,52px);--radius:2px;--max:1800px;
